@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="47e178fe-9fdf-4586-aac5-de0c68dc7ce9" name="UMLClassDiagram1" linkedPackageId="1d54f32f-2054-421c-8932-cfb4d1cd6219" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="6dd21094-8f10-47d1-9050-189e44dbc013">
+      <profileInstance Id="d3449364-b22e-4f2c-82d6-cc0e2900c3ca" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="704c6284-b1b1-4f97-89bd-c2ba724698bf">
+      <profileInstance Id="45c5b6cf-d824-440d-8b31-d269ae518faf" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="280f74db-452a-4516-802e-e5c495e9ca98" name="Class1" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7c3bcd5c-502b-480b-b833-1225031fe643" />
+        <ownedAttributesInternal>
+          <property Id="7730e6c7-f7b9-4740-8d6d-b1ad71dd31a7" name="Attribute1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="843e002b-b9c8-45f2-9731-a0a314dc623b" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="1d54f32f-2054-421c-8932-cfb4d1cd6219" name="ModelingProject1">
+    <elementDefinition Id="1479e96a-874a-4d02-b768-28049bd5bb91" />
+  </package>
+</logicalClassDesignerModel>
