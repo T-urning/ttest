@@ -7,3 +7,4 @@ e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\D
 e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\GenerateResource.write.1.tlog
 e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.exe
 e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.pdb
+e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.FormQueryByAttribute.resources

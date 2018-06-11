@@ -55,6 +55,8 @@ namespace Map_NetworkAnalysis
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusBarXY = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.属性查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queryAttributeMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
@@ -67,7 +69,8 @@ namespace Map_NetworkAnalysis
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
-            this.最短路径分析ToolStripMenuItem});
+            this.最短路径分析ToolStripMenuItem,
+            this.属性查询ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(859, 25);
@@ -147,28 +150,28 @@ namespace Map_NetworkAnalysis
             // addStopsMenuItem
             // 
             this.addStopsMenuItem.Name = "addStopsMenuItem";
-            this.addStopsMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addStopsMenuItem.Size = new System.Drawing.Size(148, 22);
             this.addStopsMenuItem.Text = "添加站点";
             this.addStopsMenuItem.Click += new System.EventHandler(this.addStopsMenuItem_Click);
             // 
             // addBarriesMenuItem
             // 
             this.addBarriesMenuItem.Name = "addBarriesMenuItem";
-            this.addBarriesMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addBarriesMenuItem.Size = new System.Drawing.Size(148, 22);
             this.addBarriesMenuItem.Text = "添加障碍点";
             this.addBarriesMenuItem.Click += new System.EventHandler(this.addBarriesMenuItem_Click);
             // 
             // routeSolverMenuItem
             // 
             this.routeSolverMenuItem.Name = "routeSolverMenuItem";
-            this.routeSolverMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.routeSolverMenuItem.Size = new System.Drawing.Size(148, 22);
             this.routeSolverMenuItem.Text = "执行分析";
             this.routeSolverMenuItem.Click += new System.EventHandler(this.routeSolverMenuItem_Click);
             // 
             // clearResultMenuItem
             // 
             this.clearResultMenuItem.Name = "clearResultMenuItem";
-            this.clearResultMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearResultMenuItem.Size = new System.Drawing.Size(148, 22);
             this.clearResultMenuItem.Text = "清除分析结果";
             this.clearResultMenuItem.Click += new System.EventHandler(this.clearResultMenuItem_Click);
             // 
@@ -246,6 +249,22 @@ namespace Map_NetworkAnalysis
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(131, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // 属性查询ToolStripMenuItem
+            // 
+            this.属性查询ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.queryAttributeMenuItem1});
+            this.属性查询ToolStripMenuItem.Name = "属性查询ToolStripMenuItem";
+            this.属性查询ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.属性查询ToolStripMenuItem.Text = "属性";
+           
+            // 
+            // queryAttributeMenuItem1
+            // 
+            this.queryAttributeMenuItem1.Name = "queryAttributeMenuItem1";
+            this.queryAttributeMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.queryAttributeMenuItem1.Text = "属性查询";
+            this.queryAttributeMenuItem1.Click += new System.EventHandler(this.queryAttributeMenuItem1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -299,6 +318,8 @@ namespace Map_NetworkAnalysis
         private System.Windows.Forms.ToolStripMenuItem routeSolverMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearResultMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem 属性查询ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queryAttributeMenuItem1;
     }
 }
 

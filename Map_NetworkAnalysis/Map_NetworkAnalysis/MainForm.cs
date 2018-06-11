@@ -198,6 +198,15 @@ namespace Map_NetworkAnalysis
 
         }
 
+      
+
+        private void queryAttributeMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormQueryByAttribute formQueryByAttribute = new FormQueryByAttribute();
+            formQueryByAttribute.CurrentMap = axMapControl1.Map;
+            formQueryByAttribute.Show();
+        }
+
         
     }
 }
