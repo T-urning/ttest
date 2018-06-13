@@ -74,11 +74,11 @@ namespace Map_NetworkAnalysis
 
         private IHookHelper m_hookHelper = null;
 
-        public static INAContext m_NAContext;
-        private INetworkDataset networkDataset;
-        private IFeatureClass inputFClass;
-        private IFeatureClass barriesFClass;
-        string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        public static INAContext m_NAContext;   //定义网络分析上下文
+        private INetworkDataset networkDataset;//定义网络数据集
+        private IFeatureClass inputFClass;//定义站点要素类
+        private IFeatureClass barriesFClass;//定义障碍点要素类
+        string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;//获取此程序所在路径
         public ShortPathSolveCommand()
         {
             //
@@ -110,6 +110,7 @@ namespace Map_NetworkAnalysis
         /// Occurs when this command is created
         /// </summary>
         /// <param name="hook">Instance of the application</param>
+        /// 
         public override void OnCreate(object hook)
         {
             if (hook == null)
@@ -152,6 +153,7 @@ namespace Map_NetworkAnalysis
             barriesFClass = pFWorkspace.OpenFeatureClass("Barries");  //根据名字打开障碍点要素类
             if (IFLayerExist("NetworkDataset") == false)//若不存在NetworkDataset图层就执行
             {
+                //创建名为“NetworkDataset”的图层
                 ILayer layer;
                 INetworkLayer networkLayer;
                 networkLayer = new NetworkLayerClass();
@@ -184,11 +186,11 @@ namespace Map_NetworkAnalysis
                 MessageBox.Show("只有一个站点，不能进行路径分析！");
                 return;
             }
-            IGPMessages gpMessages = new GPMessagesClass();//定义一个地理处理返回信息对象
+            IGPMessages gpMessages = new GPMessagesClass();//定义一个地理处理结果信息返回对象
             //加载站点要素，并设置容差
             NetWorkAnalysClass.LoadNANetworkLocations("Stops", inputFClass, m_NAContext, 80);
             //加载障碍点要素，并设置容差
-            NetWorkAnalysClass.LoadNANetworkLocations("Barriers",barriesFClass, m_NAContext, 20);
+            NetWorkAnalysClass.LoadNANetworkLocations("Barriers",barriesFClass, m_NAContext, 50);
             INASolver naSolver = m_NAContext.Solver;//创建网络分析对象
             try
             {
@@ -208,6 +210,7 @@ namespace Map_NetworkAnalysis
                 if (m_hookHelper.FocusMap.get_Layer(i).Name == m_NAContext.Solver.DisplayName)
                 {
                     //ICompositeLayer Interface Provides access to members that work with a collection of layers that behaves like a single layer.
+                    //CompositeLayer为图层组类型
                     ICompositeLayer pCompositeLayer = m_hookHelper.FocusMap.get_Layer(i) as ICompositeLayer;
                     for (int t = 0; t < pCompositeLayer.Count; t++)
                     {
@@ -221,9 +224,9 @@ namespace Map_NetworkAnalysis
                 }
             }
            
-
+            //接下来将地图的视图范围缩放至最短路径的显示范围
             IGeoDataset geoDataset;//地理数据集
-            IEnvelope envelope;
+            IEnvelope envelope;//最小边界矩形
             geoDataset = m_NAContext.NAClasses.get_ItemByName("Routes") as IGeoDataset;
             //The IGeoDataset::Extent property returns an envelope representing the maximum extent of data which has been stored in the dataset.
             envelope = geoDataset.Extent;
@@ -273,6 +276,7 @@ namespace Map_NetworkAnalysis
         }
 
         #endregion
+        //该函数用于判断，图层是否存在于当前地图
         private bool IFLayerExist(string layerName)
         {
             for (int i = 0; i < m_hookHelper.FocusMap.LayerCount; i++)
@@ -283,20 +287,11 @@ namespace Map_NetworkAnalysis
             }
             return false;
         }
-        public void GetResults(INALayer naLayer)
-        {
-            IPropertySet propertySet = naLayer.Context.Result.OutputProperties;
-            object names;
-            object values;
-            propertySet.GetAllProperties(out names, out values);
-            for (int i = 0; i < propertySet.Count; i++)
-            {
-                Console.WriteLine("{0} = {1}", ((string[])names)[i], ((object[])values)[i]);
-            }
+        
         }
     }
 
 
     
-}
+
 

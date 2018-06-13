@@ -163,13 +163,14 @@ namespace Map_NetworkAnalysis
             {
                 //根据人为用鼠标在地图上单击的点的坐标新建站点要素
                 IPoint pStopsPoint = new PointClass();
+                //将鼠标在屏幕上点击的一点的坐标转换为地图上的坐标，并赋给pStopsPoint
                 pStopsPoint = m_hookHelper.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(X, Y);
-                IFeature newPointFeature = inputFClass.CreateFeature();
+                IFeature newPointFeature = inputFClass.CreateFeature();//创建新的障碍点要素
                 try
                 {
                     pStopsPoint.Z = 0;
-                    newPointFeature.Shape = pStopsPoint;
-                    IZAware pZAware = pStopsPoint as IZAware;
+                    newPointFeature.Shape = pStopsPoint;//将pStopsPoint赋给新要素的Shape属性
+                    IZAware pZAware = pStopsPoint as IZAware;//Z值为高程
                     IMAware pMAware = pStopsPoint as IMAware;//M值是用来储存其他属性信息，如温度、浓度
                     pZAware.ZAware = true;
                     pMAware.MAware = true;

@@ -129,6 +129,12 @@
     <Compile Include="FormQueryByAttribute.Designer.cs">
       <DependentUpon>FormQueryByAttribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormQueryBySpatial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormQueryBySpatial.Designer.cs">
+      <DependentUpon>FormQueryBySpatial.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     <Compile Include="ShortPathSolveCommand.cs" />
     <EmbeddedResource Include="FormQueryByAttribute.resx">
       <DependentUpon>FormQueryByAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormQueryBySpatial.resx">
+      <DependentUpon>FormQueryBySpatial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>

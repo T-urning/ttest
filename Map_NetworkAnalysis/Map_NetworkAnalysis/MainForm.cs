@@ -121,6 +121,7 @@ namespace Map_NetworkAnalysis
                 menuSaveDoc.Enabled = true;
                 statusBarXY.Text = System.IO.Path.GetFileName(m_mapDocumentName);
             }
+           
         }
 
         private void axMapControl1_OnMouseMove(object sender, IMapControlEvents2_OnMouseMoveEvent e)
@@ -136,32 +137,32 @@ namespace Map_NetworkAnalysis
         private void addStopsMenuItem_Click(object sender, EventArgs e)
         {
             ICommand pCommand;
-            pCommand = new AddNetStopsTool();
-            pCommand.OnCreate(axMapControl1.Object);
-            axMapControl1.CurrentTool = pCommand as ITool;
+            pCommand = new AddNetStopsTool();//新建自定义的“添加站点”工具
+            pCommand.OnCreate(axMapControl1.Object);//创建该工具
+            axMapControl1.CurrentTool = pCommand as ITool;//将“添加站点”工具定义为地图控件的当前工具
             pCommand = null;
         }
         //加载障碍点
         private void addBarriesMenuItem_Click(object sender, EventArgs e)
         {
             ICommand pCommand;
-            pCommand = new AddNetBarriesTool();
-            pCommand.OnCreate(axMapControl1.Object);
-            axMapControl1.CurrentTool = pCommand as ITool;
+            pCommand = new AddNetBarriesTool();//新建自定义的“添加障碍点”工具
+            pCommand.OnCreate(axMapControl1.Object);//创建该工具
+            axMapControl1.CurrentTool = pCommand as ITool;//将“添加障碍点”工具定义为地图控件的当前工具
             pCommand = null;
         }
         //最短路径分析
         private void routeSolverMenuItem_Click(object sender, EventArgs e)
         {
             ICommand pCommand;
-            pCommand = new ShortPathSolveCommand();
-            pCommand.OnCreate(axMapControl1.Object);
-            pCommand.OnClick();
+            pCommand = new ShortPathSolveCommand();//新建自定义的“执行分析”命令
+            pCommand.OnCreate(axMapControl1.Object);//创建该命令
+            pCommand.OnClick();//启动该命令
             pCommand = null;
         }
         private void clearResultMenuItem_Click(object sender, EventArgs e)
         {
-            axMapControl1.CurrentTool = null;
+            axMapControl1.CurrentTool = null;//将地图空间的当前工具注销
             try
             {
                 string name = NetWorkAnalysClass.getPath(path) + "\\data\\HuanbaoGeodatabase.gdb";
@@ -199,13 +200,73 @@ namespace Map_NetworkAnalysis
         }
 
       
-
+        //属性查询菜单项点击事件响应函数
         private void queryAttributeMenuItem1_Click(object sender, EventArgs e)
         {
+            //新建属性查询窗体
             FormQueryByAttribute formQueryByAttribute = new FormQueryByAttribute();
+            //地图作为参数传入到窗体中
             formQueryByAttribute.CurrentMap = axMapControl1.Map;
+            //显示窗体
             formQueryByAttribute.Show();
         }
+
+        private void queyBySpatialRelMenuItem_Click(object sender, EventArgs e)
+        {
+            //新建空间查询窗体
+            FormQueryBySpatial formQueryBySpatial = new FormQueryBySpatial();
+             //地图作为参数传入到窗体中
+            formQueryBySpatial.CurrentMap = axMapControl1.Map;
+             //显示窗体
+            formQueryBySpatial.Show();
+        }
+
+        private void clearSelectionMenuItem_Click(object sender, EventArgs e)
+        {
+            //清除选择集
+            m_mapControl.Map.ClearSelection();
+            //刷新视图
+            m_mapControl.ActiveView.Refresh();
+        }
+
+        private void axToolbarControl1_OnMouseDown(object sender, IToolbarControlEvents_OnMouseDownEvent e)
+        {
+
+        }
+
+        private void unDoMenuItem_Click(object sender, EventArgs e)
+        {
+            IExtentStack pExtentStack = m_mapControl.ActiveView.ExtentStack;
+            //判断是否可以回到前一视图，第一个视图没有前视图
+            if (pExtentStack.CanUndo())
+            {
+                pExtentStack.Undo();
+                reDoMenuItem.Enabled = true;    //后一视图按钮可以使用
+                if (!pExtentStack.CanUndo())
+                {
+                    unDoMenuItem.Enabled = false;   //前一视图按钮不能使用
+                }
+            }
+            m_mapControl.ActiveView.Refresh();
+        }
+
+        private void reDoMenuItem_Click(object sender, EventArgs e)
+        {
+            //判断是否可以回到后一视图，最后一个视图没有后一视图
+            IExtentStack pExtentStack = m_mapControl.ActiveView.ExtentStack;
+            if (pExtentStack.CanRedo())
+            {
+                pExtentStack.Redo();
+                unDoMenuItem.Enabled = true;    //前一视图按钮可以使用
+                if (!pExtentStack.CanRedo())
+                {
+                    reDoMenuItem.Enabled = false;
+                }
+            }
+            m_mapControl.ActiveView.Refresh();
+        }
+
+        
 
         
     }

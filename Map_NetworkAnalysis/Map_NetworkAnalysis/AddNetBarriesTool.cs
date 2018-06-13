@@ -154,17 +154,18 @@ namespace Map_NetworkAnalysis
         public override void OnMouseDown(int Button, int Shift, int X, int Y)
         {
             try {
-                //根据人为用鼠标在地图上单击的点的坐标新建障碍点要素
-                IPoint pStopsPoint = new PointClass();
-                pStopsPoint = m_hookHelper.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(X,Y);
-                IFeature newPointFeature = barriesFClass.CreateFeature();
+                
+                IPoint pBarriesPoint = new PointClass();
+                //将鼠标在屏幕上点击的一点的坐标转换为地图上的坐标，并赋给pBarriesPoint
+                pBarriesPoint = m_hookHelper.ActiveView.ScreenDisplay.DisplayTransformation.ToMapPoint(X,Y);
+                IFeature newPointFeature = barriesFClass.CreateFeature();//创建新的障碍点要素
                 try
                 {
-                    newPointFeature.Shape = pStopsPoint;
+                    newPointFeature.Shape = pBarriesPoint;//将pStopsPoint赋给新要素的Shape属性
                 }
                 catch
                 {
-                    IGeometry pGeo = pStopsPoint;
+                    IGeometry pGeo = pBarriesPoint;
                     IZAware pZAware = pGeo as IZAware;
                     pZAware.ZAware = false;
                     newPointFeature.Shape = pGeo;
@@ -181,15 +182,15 @@ namespace Map_NetworkAnalysis
                 IPictureMarkerSymbol pms = new PictureMarkerSymbolClass();
                 pms.BitmapTransparencyColor = pColor;
                 string picturePath = NetWorkAnalysClass.getPath(path) + "\\data\\Img\\barries.bmp";
-                //添加自定义站点图片
+                //添加自定义障碍点图片
                 pms.CreateMarkerSymbolFromFile(esriIPictureType.esriIPictureBitmap, picturePath);
                 pms.Size = 18;
                 IMarkerElement pMarkerEle = new MarkerElementClass();
                 pMarkerEle.Symbol = pms as IMarkerSymbol;
                 //将障碍点位置数据的空间参考设为与地图空间参考一致
-                pStopsPoint.SpatialReference = m_hookHelper.ActiveView.FocusMap.SpatialReference;
+                pBarriesPoint.SpatialReference = m_hookHelper.ActiveView.FocusMap.SpatialReference;
                 IElement pEle = pMarkerEle as IElement;
-                pEle.Geometry = pStopsPoint;
+                pEle.Geometry = pBarriesPoint;
                 pGrap.AddElement(pEle, 1);
                 m_hookHelper.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
 
