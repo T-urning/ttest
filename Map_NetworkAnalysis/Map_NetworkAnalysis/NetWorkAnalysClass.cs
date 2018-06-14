@@ -10,6 +10,7 @@ using ESRI.ArcGIS.NetworkAnalyst;
 using ESRI.ArcGIS.SpatialAnalystTools;
 using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.DataSourcesGDB;
+using ESRI.ArcGIS.Carto;
 
 namespace Map_NetworkAnalysis
 {
@@ -107,6 +108,32 @@ namespace Map_NetworkAnalysis
             IDataset dataSet = datasetContainer3.get_DatasetByName(esriDatasetType.esriDTNetworkDataset,
                 networkDatasetName);
             return dataSet as INetworkDataset;
+        }
+        //根据图层名获取图层
+        public static ILayer GetLayerByName(IMap map ,string layerName)
+        {
+            if (map == null || layerName == "") return null;
+            ILayer layer = null;
+            ICompositeLayer compositeLayer = null;
+            for (int i = 0; i < map.LayerCount; i++)
+            { 
+                layer = map.get_Layer(i);
+                if (layer is ICompositeLayer || layer is GroupLayer)
+                {
+                    compositeLayer = layer as ICompositeLayer;
+                    for (int j = 0; j < compositeLayer.Count; j++)
+                    {
+                        if (compositeLayer.get_Layer(j).Name == layerName)
+                            return compositeLayer.get_Layer(j);
+                    }
+                }
+                else 
+                {
+                    if (layer.Name == layerName)
+                        return layer;
+                }
+            }
+            return null;
         }
     }
 }

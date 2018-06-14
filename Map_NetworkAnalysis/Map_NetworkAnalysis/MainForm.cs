@@ -26,7 +26,8 @@ namespace Map_NetworkAnalysis
         private string m_mapDocumentName = string.Empty;
         #endregion
         private string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-
+        IFeatureLayer pTocFeatureLayer = null;//被选中的图层
+        private FormAtrribute frmAttribute = null;//图层属性显示窗体
         #region class constructor
         public MainForm()
         {
@@ -131,7 +132,20 @@ namespace Map_NetworkAnalysis
 
         private void axTOCControl1_OnMouseDown(object sender, ITOCControlEvents_OnMouseDownEvent e)
         {
-
+            if (e.button == 2)
+            {
+                esriTOCControlItem pItem = esriTOCControlItem.esriTOCControlItemNone;
+                IBasicMap pMap = null;
+                object unk = null;
+                object data = null;
+                ILayer pLayer = null;
+                axTOCControl1.HitTest(e.x, e.y, ref pItem, ref pMap, ref pLayer, ref unk, ref data);
+                pTocFeatureLayer = pLayer as IFeatureLayer;
+                if (pItem == esriTOCControlItem.esriTOCControlItemLayer && pTocFeatureLayer != null)
+                {
+                    contextMenuStrip2.Show(Control.MousePosition);
+                }
+            }
         }
         //加载站点
         private void addStopsMenuItem_Click(object sender, EventArgs e)
@@ -159,6 +173,42 @@ namespace Map_NetworkAnalysis
             pCommand.OnCreate(axMapControl1.Object);//创建该命令
             pCommand.OnClick();//启动该命令
             pCommand = null;
+            #region 道路详细信息
+            //获取最短路径的长度
+            string totalLengthOfRoute = "";
+            IFeatureLayer shortRouteLayer = NetWorkAnalysClass.GetLayerByName(
+                m_mapControl.Map, "Routes") as IFeatureLayer;
+            IFeatureCursor featureCursor = shortRouteLayer.Search(null, false);
+            IFeature featue = featureCursor.NextFeature();
+            for (int i = 0; i < featue.Fields.FieldCount; i++)
+            {
+                if (featue.Fields.get_Field(i).Name == "Total_Shape_Length")
+                {
+                    totalLengthOfRoute =  featue.get_Value(i).ToString();
+                }
+            }
+            //获取与最短路径有关的道路的名字
+            FormQueryBySpatial formQueryBySpatial = new FormQueryBySpatial();
+            ArrayList  containRouteNameList = formQueryBySpatial.selectRouteNameBySpatial(
+                esriSpatialRelEnum.esriSpatialRelContains, m_mapControl.Map);
+            ArrayList overlapRouteNameList = formQueryBySpatial.selectRouteNameBySpatial(
+                esriSpatialRelEnum.esriSpatialRelOverlaps, m_mapControl.Map);
+            m_mapControl.Map.ClearSelection();
+            string output = "经过道路有：";
+            
+            for (int i = 0; i < containRouteNameList.Count; i++) {
+                output += containRouteNameList[i].ToString() + ","; 
+            }
+            output = output.Substring(0, output.Length - 1);
+            output += "\n" + "站点所在道路为："; 
+            for (int i = 0; i < overlapRouteNameList.Count; i++)
+            {
+                output += overlapRouteNameList[i].ToString() + ",";
+            }
+            output = output.Substring(0,output.Length-1);
+            output = output + "\n" + "路径长度：" + totalLengthOfRoute + "米";
+            MessageBox.Show(output);
+            #endregion
         }
         private void clearResultMenuItem_Click(object sender, EventArgs e)
         {
@@ -194,11 +244,7 @@ namespace Map_NetworkAnalysis
             this.axMapControl1.Refresh();
         }
 
-        private void axMapControl1_OnMouseDown(object sender, IMapControlEvents2_OnMouseDownEvent e)
-        {
-
-        }
-
+        
       
         //属性查询菜单项点击事件响应函数
         private void queryAttributeMenuItem1_Click(object sender, EventArgs e)
@@ -229,11 +275,7 @@ namespace Map_NetworkAnalysis
             m_mapControl.ActiveView.Refresh();
         }
 
-        private void axToolbarControl1_OnMouseDown(object sender, IToolbarControlEvents_OnMouseDownEvent e)
-        {
-
-        }
-
+       
         private void unDoMenuItem_Click(object sender, EventArgs e)
         {
             IExtentStack pExtentStack = m_mapControl.ActiveView.ExtentStack;
@@ -265,6 +307,40 @@ namespace Map_NetworkAnalysis
             }
             m_mapControl.ActiveView.Refresh();
         }
+        //右键图层列表查看图层属性
+        private void showFTLayerAttributeMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmAttribute == null || frmAttribute.IsDisposed)
+            {
+                frmAttribute = new FormAtrribute(axMapControl1.Map);
+            }
+            frmAttribute.CurFeatureLayer = pTocFeatureLayer;
+            frmAttribute.InitUI();
+            frmAttribute.ShowDialog();
+        }
+        //右键图层列表缩放至图层
+        private void zoomToLayerMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pTocFeatureLayer == null) return;
+            (axMapControl1.Map as IActiveView).Extent = pTocFeatureLayer.AreaOfInterest;
+            (axMapControl1.Map as IActiveView).PartialRefresh(
+                esriViewDrawPhase.esriViewGeography, null, null);
+        }
+        //右键图层列表删除图层
+        private void deleteLayerMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pTocFeatureLayer == null) return;
+            DialogResult result = MessageBox.Show("是否删除[" + pTocFeatureLayer.Name + "]图层",
+                "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                axMapControl1.Map.DeleteLayer(pTocFeatureLayer);
+
+            }
+            axMapControl1.ActiveView.Refresh();
+        }
+
+       
 
         
 

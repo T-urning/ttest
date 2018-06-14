@@ -51,6 +51,10 @@ namespace Map_NetworkAnalysis
             this.queryBySpatialRelMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryAttributeMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.queyBySpatialRelMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearSelectionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.后悔药ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unDoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reDoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
@@ -59,17 +63,17 @@ namespace Map_NetworkAnalysis
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusBarXY = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.clearSelectionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.后悔药ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unDoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reDoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showFTLayerAttributeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToLayerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteLayerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -158,28 +162,28 @@ namespace Map_NetworkAnalysis
             // addStopsMenuItem
             // 
             this.addStopsMenuItem.Name = "addStopsMenuItem";
-            this.addStopsMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addStopsMenuItem.Size = new System.Drawing.Size(148, 22);
             this.addStopsMenuItem.Text = "添加站点";
             this.addStopsMenuItem.Click += new System.EventHandler(this.addStopsMenuItem_Click);
             // 
             // addBarriesMenuItem
             // 
             this.addBarriesMenuItem.Name = "addBarriesMenuItem";
-            this.addBarriesMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addBarriesMenuItem.Size = new System.Drawing.Size(148, 22);
             this.addBarriesMenuItem.Text = "添加障碍点";
             this.addBarriesMenuItem.Click += new System.EventHandler(this.addBarriesMenuItem_Click);
             // 
             // routeSolverMenuItem
             // 
             this.routeSolverMenuItem.Name = "routeSolverMenuItem";
-            this.routeSolverMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.routeSolverMenuItem.Size = new System.Drawing.Size(148, 22);
             this.routeSolverMenuItem.Text = "执行分析";
             this.routeSolverMenuItem.Click += new System.EventHandler(this.routeSolverMenuItem_Click);
             // 
             // clearResultMenuItem
             // 
             this.clearResultMenuItem.Name = "clearResultMenuItem";
-            this.clearResultMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearResultMenuItem.Size = new System.Drawing.Size(148, 22);
             this.clearResultMenuItem.Text = "清除分析结果";
             this.clearResultMenuItem.Click += new System.EventHandler(this.clearResultMenuItem_Click);
             // 
@@ -204,8 +208,38 @@ namespace Map_NetworkAnalysis
             // 
             this.queyBySpatialRelMenuItem.Name = "queyBySpatialRelMenuItem";
             this.queyBySpatialRelMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.queyBySpatialRelMenuItem.Text = "按空间交集查询";
+            this.queyBySpatialRelMenuItem.Text = "按空间关系查询";
             this.queyBySpatialRelMenuItem.Click += new System.EventHandler(this.queyBySpatialRelMenuItem_Click);
+            // 
+            // clearSelectionMenuItem
+            // 
+            this.clearSelectionMenuItem.Name = "clearSelectionMenuItem";
+            this.clearSelectionMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.clearSelectionMenuItem.Text = "清除选择集";
+            this.clearSelectionMenuItem.Click += new System.EventHandler(this.clearSelectionMenuItem_Click);
+            // 
+            // 后悔药ToolStripMenuItem
+            // 
+            this.后悔药ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.unDoMenuItem,
+            this.reDoMenuItem});
+            this.后悔药ToolStripMenuItem.Name = "后悔药ToolStripMenuItem";
+            this.后悔药ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.后悔药ToolStripMenuItem.Text = "前后视图";
+            // 
+            // unDoMenuItem
+            // 
+            this.unDoMenuItem.Name = "unDoMenuItem";
+            this.unDoMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.unDoMenuItem.Text = "上一视图";
+            this.unDoMenuItem.Click += new System.EventHandler(this.unDoMenuItem_Click);
+            // 
+            // reDoMenuItem
+            // 
+            this.reDoMenuItem.Name = "reDoMenuItem";
+            this.reDoMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.reDoMenuItem.Text = "后一视图";
+            this.reDoMenuItem.Click += new System.EventHandler(this.reDoMenuItem_Click);
             // 
             // axMapControl1
             // 
@@ -215,7 +249,7 @@ namespace Map_NetworkAnalysis
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
             this.axMapControl1.Size = new System.Drawing.Size(668, 466);
             this.axMapControl1.TabIndex = 2;
-            this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
+          
             this.axMapControl1.OnMouseMove += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseMoveEventHandler(this.axMapControl1_OnMouseMove);
             this.axMapControl1.OnMapReplaced += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMapReplacedEventHandler(this.axMapControl1_OnMapReplaced);
             // 
@@ -227,7 +261,7 @@ namespace Map_NetworkAnalysis
             this.axToolbarControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControl1.OcxState")));
             this.axToolbarControl1.Size = new System.Drawing.Size(859, 28);
             this.axToolbarControl1.TabIndex = 3;
-            this.axToolbarControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IToolbarControlEvents_Ax_OnMouseDownEventHandler(this.axToolbarControl1_OnMouseDown);
+            
             // 
             // axTOCControl1
             // 
@@ -282,40 +316,35 @@ namespace Map_NetworkAnalysis
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(131, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // contextMenuStrip1
+            // contextMenuStrip2
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showFTLayerAttributeMenuItem,
+            this.zoomToLayerMenuItem,
+            this.deleteLayerMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(137, 70);
             // 
-            // clearSelectionMenuItem
+            // showFTLayerAttributeMenuItem
             // 
-            this.clearSelectionMenuItem.Name = "clearSelectionMenuItem";
-            this.clearSelectionMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.clearSelectionMenuItem.Text = "清除选择集";
-            this.clearSelectionMenuItem.Click += new System.EventHandler(this.clearSelectionMenuItem_Click);
+            this.showFTLayerAttributeMenuItem.Name = "showFTLayerAttributeMenuItem";
+            this.showFTLayerAttributeMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.showFTLayerAttributeMenuItem.Text = "属性表";
+            this.showFTLayerAttributeMenuItem.Click += new System.EventHandler(this.showFTLayerAttributeMenuItem_Click);
             // 
-            // 后悔药ToolStripMenuItem
+            // zoomToLayerMenuItem
             // 
-            this.后悔药ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unDoMenuItem,
-            this.reDoMenuItem});
-            this.后悔药ToolStripMenuItem.Name = "后悔药ToolStripMenuItem";
-            this.后悔药ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.后悔药ToolStripMenuItem.Text = "前后视图";
+            this.zoomToLayerMenuItem.Name = "zoomToLayerMenuItem";
+            this.zoomToLayerMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.zoomToLayerMenuItem.Text = "缩放至图层";
+            this.zoomToLayerMenuItem.Click += new System.EventHandler(this.zoomToLayerMenuItem_Click);
             // 
-            // unDoMenuItem
+            // deleteLayerMenuItem
             // 
-            this.unDoMenuItem.Name = "unDoMenuItem";
-            this.unDoMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.unDoMenuItem.Text = "上一视图";
-            this.unDoMenuItem.Click += new System.EventHandler(this.unDoMenuItem_Click);
-            // 
-            // reDoMenuItem
-            // 
-            this.reDoMenuItem.Name = "reDoMenuItem";
-            this.reDoMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.reDoMenuItem.Text = "后一视图";
-            this.reDoMenuItem.Click += new System.EventHandler(this.reDoMenuItem_Click);
+            this.deleteLayerMenuItem.Name = "deleteLayerMenuItem";
+            this.deleteLayerMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.deleteLayerMenuItem.Text = "移除图层";
+            this.deleteLayerMenuItem.Click += new System.EventHandler(this.deleteLayerMenuItem_Click);
             // 
             // MainForm
             // 
@@ -342,6 +371,7 @@ namespace Map_NetworkAnalysis
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,12 +402,16 @@ namespace Map_NetworkAnalysis
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem queryBySpatialRelMenuItem;
         private System.Windows.Forms.ToolStripMenuItem queryAttributeMenuItem1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+
         private System.Windows.Forms.ToolStripMenuItem queyBySpatialRelMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearSelectionMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 后悔药ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unDoMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reDoMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem showFTLayerAttributeMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomToLayerMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteLayerMenuItem;
     }
 }
 

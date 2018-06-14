@@ -9,3 +9,4 @@ e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\D
 e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.pdb
 e:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.FormQueryByAttribute.resources
 E:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.FormQueryBySpatial.resources
+E:\visual studio 2010\Projects\Map_NetworkAnalysis\Map_NetworkAnalysis\obj\x86\Debug\Map_NetworkAnalysis.FormAtrribute.resources

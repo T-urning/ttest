@@ -78,7 +78,14 @@ namespace Map_NetworkAnalysis
         private INetworkDataset networkDataset;//定义网络数据集
         private IFeatureClass inputFClass;//定义站点要素类
         private IFeatureClass barriesFClass;//定义障碍点要素类
-        string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;//获取此程序所在路径
+        private string path = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;//获取此程序所在路径
+        private string total_Length_str;
+
+        public string Total_Length_str
+        {
+            get { return total_Length_str; }
+            
+        }
         public ShortPathSolveCommand()
         {
             //
@@ -238,40 +245,19 @@ namespace Map_NetworkAnalysis
             m_hookHelper.ActiveView.Extent = envelope;
             //刷新视图
             m_hookHelper.ActiveView.Refresh();
-
-
-            #region 显示路径详细信息
-            //GetResults(naLayer);
+            //获取最短路径“Routes”要素
             ITable table = m_NAContext.NAClasses.get_ItemByName("Routes") as ITable;
-            //int count = table.RowCount(null);
             ICursor cursor = table.Search(null,false);
             IRow row = cursor.NextRow();
-           
-            //int wor = row.Fields.FieldCount;
             for (int i = 0; i < table.Fields.FieldCount; i++)
             {
                 if (table.Fields.get_Field(i).AliasName == "Total_Shape_Length")
                 {
-                    MessageBox.Show("路径长度："+ row.get_Value(i) + "米","路径信息",
-                        MessageBoxButtons.OK,MessageBoxIcon.None);
-                }      
+                    //获取最短路径的总长度
+                    total_Length_str = row.get_Value(i).ToString();
+                    
+                }
             }
-                
-            //IFeatureClass routesData = geoDataset as IFeatureClass;
-            //IFeatureClass routes = m_NAContext.NAClasses.get_ItemByName("Routes") as IFeatureClass;
-            //int counti = routes.FeatureCount(null);
-            //IFeatureCursor featureCursor = routesData.Search(null, false);
-            //IFeature shortPath = featureCursor.NextFeature();
-            
-            //string fieldName;
-            //string aliaName;
-            //for (int i = 0; i < feature.Fields.FieldCount; i++)
-            //{
-            //    fieldName = feature.Fields.get_Field(i).Name;
-            //    aliaName = feature.Fields.get_Field(i).AliasName;
-            //}
-
-            #endregion
            
         }
 
